@@ -169,6 +169,10 @@ class _SearchBarState extends State<SearchBar> {
                   }
                 },
                 child: TextField(
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey),
                   controller: _controller,
                   onChanged: (value) {
                     widget.onChanged(value);
@@ -189,7 +193,7 @@ class _SearchBarState extends State<SearchBar> {
                     }
                   },
                   decoration: InputDecoration(
-                      labelText: 'Ara',
+                      hintText: 'Ürün arayın...',
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none),
                 ))));
