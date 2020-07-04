@@ -32,11 +32,13 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   List<BottomNavigationBarItem> itemTabs = [
-    buildBottomNavigationBarItem(Icon(LineIcons.home), 'Anasayfa'),
-    buildBottomNavigationBarItem(Icon(LineIcons.list), 'Kategoriler'),
-    buildBottomNavigationBarItem(Icon(LineIcons.superscript), 'Kampanyalar'),
-    buildBottomNavigationBarItem(Icon(LineIcons.search), 'Ürün Ara'),
-    buildBottomNavigationBarItem(Icon(LineIcons.cart_plus), 'Sepetim'),
+    buildBottomNavigationBarItem(Icon(Icons.home, size: 30), 'Anasayfa'),
+    buildBottomNavigationBarItem(
+        Icon(Icons.filter_list, size: 30), 'Kategoriler'),
+    buildBottomNavigationBarItem(
+        Icon(Icons.surround_sound, size: 30), 'Kampanyalar'),
+    buildBottomNavigationBarItem(Icon(Icons.search, size: 30), 'Ürün Ara'),
+    buildBottomNavigationBarItem(Icon(Icons.shopping_cart, size: 30), 'Sepetim')
   ];
 
   List<Widget> pages = [
@@ -149,8 +151,8 @@ BottomNavigationBarItem buildBottomNavigationBarItem(
 
 Widget buildAppBarButton(IconData iconData) {
   return MaterialButton(
-    height: 41,
-    minWidth: 41,
+    height: 30,
+    minWidth: 30,
     onPressed: () {},
     color: bottomBarColor,
     textColor: Colors.white,

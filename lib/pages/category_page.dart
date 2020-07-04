@@ -24,20 +24,43 @@ class _CategoryPageState extends State<CategoryPage> {
               child: Column(
                 children: [
                   CategoryListItem(
-                    imgSrc: 'assets/images/lolo_dog',
-                    title: 'Et, Balık, Tavuk',
-                    sub_categories: [Category('Tümünü Gör', () {})],
-                    onPress: () => {},
-                  ),
-                  CategoryListItem(
-                    imgSrc: 'assets/images/lolo_dog',
-                    title: 'Süt Kahvaltılık',
-                    onPress: () => {},
-                  ),
-                  CategoryListItem(
-                    imgSrc: 'assets/images/lolo_dog',
-                    title: 'Gıda, Şekerleme',
-                    onPress: () => {},
+                    category: Category('Kategori 1', 'assets/images/lolo_dog',
+                        () {}, <Category>[
+                      Category('Alt Kategori 1', 'assets/images/lolo_dog',
+                          () {}, <Category>[
+                        Category('Alt Alt Kategori 1', 'assets/images/lolo_dog',
+                            () {}, <Category>[
+                          Category('Alt Alt Alt Kategori 1',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 2',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 3',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 4',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                        ]),
+                        Category('Alt Alt Kategori 2', 'assets/images/lolo_dog',
+                            () {}, <Category>[]),
+                        Category('Alt Alt Kategori 3', 'assets/images/lolo_dog',
+                            () {}, <Category>[]),
+                        Category('Alt Alt Kategori 4', 'assets/images/lolo_dog',
+                            () {}, <Category>[
+                          Category('Alt Alt Alt Kategori 1',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 2',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 3',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                          Category('Alt Alt Alt Kategori 4',
+                              'assets/images/lolo_dog', () {}, <Category>[]),
+                        ])
+                      ]),
+                      Category('Alt Kategori 2', 'assets/images/lolo_dog',
+                          () {}, <Category>[]),
+                      Category('Alt Kategori 3', 'assets/images/lolo_dog',
+                          () {}, <Category>[])
+                    ]),
+                    depth: 1,
                   ),
                 ],
               ))

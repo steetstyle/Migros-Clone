@@ -6,7 +6,7 @@ final white = Color(0xFFFFFFFF);
 final textWhite = Color(0xFFFFFFFF);
 final textBlack = Color(0xFF000000);
 final bottomBarColor = Color.fromARGB(255, 52, 84, 94);
-final bottomBarItemSelectedColor = Color.fromARGB(255, 211, 84, 0);
+final bottomBarItemSelectedColor = Color.fromARGB(255, 245, 129, 41);
 
 // card color
 final card1 = Color(0xFF15464E);
