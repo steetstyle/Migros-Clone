@@ -4,7 +4,7 @@ import 'package:myapp/widgets/search_bar.dart';
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

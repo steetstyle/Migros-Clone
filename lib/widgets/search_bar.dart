@@ -55,6 +55,8 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   final TextEditingController _controller = new TextEditingController();
   double _width = 0;
+  double heigth = 0;
+  bool _isfocusedSearchBar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,41 +68,66 @@ class _SearchBarState extends State<SearchBar> {
         children: [
           buildSearchbar(),
           SizedBox(height: 10),
-          buildSearchTool(),
-          Container(
-            width: double.infinity,
-            height: 1,
-            color: Colors.grey,
-          ),
-          if (widget.cached_search_list != null &&
-              widget.cached_search_list.length > 0)
-            for (String cached_search in widget.cached_search_list)
-              buildCachedSearch(cached_search)
+          AnimatedContainer(
+            height:
+                _isfocusedSearchBar ? MediaQuery.of(context).size.height : 0,
+            duration: Duration(milliseconds: 500),
+            child: Column(
+              children: [
+                buildSearchTool(),
+                AnimatedContainer(
+                  width: _isfocusedSearchBar
+                      ? MediaQuery.of(context).size.width
+                      : 0,
+                  duration: Duration(milliseconds: 250),
+                  height: 1,
+                  color: Colors.grey,
+                ),
+                if (widget.cached_search_list != null &&
+                    widget.cached_search_list.length > 0)
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        for (String cached_search
+                            in widget.cached_search_list.reversed)
+                          buildCachedSearch(cached_search)
+                      ],
+                    ),
+                  )
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  Padding buildSearchTool() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Arama Geçmisi",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-          InkWell(
-            onTap: () {
-              widget.prefs.remove(widget.storeKey);
-              setState(() {
-                widget.cached_search_list = [];
-              });
-              widget.onClean();
-            },
-            child: Text("Geçmisi Temizle",
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100)),
-          )
-        ],
+  AnimatedContainer buildSearchTool() {
+    return AnimatedContainer(
+      duration: Duration(microseconds: 100),
+      height: _isfocusedSearchBar ? 50 : 0,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Arama Geçmisi",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            InkWell(
+              onTap: () {
+                widget.prefs.remove(widget.storeKey);
+                setState(() {
+                  widget.cached_search_list = [];
+                });
+                widget.onClean();
+              },
+              child: Text("Geçmisi Temizle",
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100)),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -132,9 +159,11 @@ class _SearchBarState extends State<SearchBar> {
                   if (value) {
                     setState(() {
                       _width = 50;
+                      _isfocusedSearchBar = true;
                     });
                   } else {
                     setState(() {
+                      _isfocusedSearchBar = false;
                       _width = 0;
                     });
                   }
@@ -146,14 +175,17 @@ class _SearchBarState extends State<SearchBar> {
                   },
                   onSubmitted: (String value) {
                     if (value.length > 0) {
+                      if (widget.cached_search_list.length >= 7) {
+                        widget.cached_search_list.removeAt(0);
+                      }
                       widget.cached_search_list.add(value);
                       widget.prefs.setStringList(
                           widget.storeKey, widget.cached_search_list);
                       setState(() {
                         widget.cached_search_list = widget.cached_search_list;
+                        _isfocusedSearchBar = false;
                       });
                       widget.onSubmitted(value);
-                      _controller.clear();
                     }
                   },
                   decoration: InputDecoration(
@@ -179,15 +211,20 @@ class _SearchBarState extends State<SearchBar> {
             }));
   }
 
-  Padding buildCachedSearch(String cached_search) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: InkWell(
-            onTap: () {
-              widget.onTapSearchedItem(cached_search);
-            },
-            child: Text(cached_search)),
+  AnimatedContainer buildCachedSearch(String cached_search) {
+    return AnimatedContainer(
+      duration: Duration(microseconds: 100),
+      height: _isfocusedSearchBar ? 40 : 0,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          child: InkWell(
+              onTap: () {
+                widget.onTapSearchedItem(cached_search);
+              },
+              child: Text(cached_search)),
+        ),
       ),
     );
   }
