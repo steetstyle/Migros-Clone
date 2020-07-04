@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:myapp/constant.dart';
+import 'package:myapp/pages/search_page.dart';
+import 'package:myapp/theme/constant.dart';
 import 'package:myapp/pages/category_page.dart';
 import 'package:myapp/pages/home_page.dart';
 
@@ -44,9 +45,7 @@ class _RootPageState extends State<RootPage> {
     Center(
       child: Text("Kampanyalar"),
     ),
-    Center(
-      child: Text("Ürün Ara"),
-    ),
+    SearchPage(),
     Center(
       child: Text("Sepetim"),
     ),

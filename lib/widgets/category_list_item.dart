@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:myapp/constant.dart';
+import 'package:myapp/theme/constant.dart';
 import 'package:myapp/models/category.dart';
 
 class CategoryListItem extends StatefulWidget {
@@ -22,51 +21,50 @@ class _CategoryListItemState extends State<CategoryListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print('ss');
-        setState(() {
-          isSelected = !isSelected;
-        });
-        widget.onPress();
-      },
-      child: Column(
-        children: [
-          buildCategoryListItem(widget.imgSrc, widget.title, widget.onPress),
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            print('${widget.title} pressed');
+            setState(() {
+              isSelected = !isSelected;
+            });
+            widget.onPress();
+          },
+          child: buildCategoryListItem(
+              widget.imgSrc, widget.title, widget.onPress),
+        ),
+        if (widget.sub_categories != null)
           buildSubCategories(widget.sub_categories, isSelected)
-        ],
-      ),
+      ],
     );
   }
 }
 
 Widget buildSubCategories(List<Category> sub_categories, bool _isSelected) {
   return AnimatedContainer(
-    height: _isSelected == true ? 50.0 * 3.0 : 0,
+    height: _isSelected == true ? 50.0 * sub_categories.length : 0,
     duration: Duration(milliseconds: 250),
     child: Column(
       children: <Widget>[
-        AnimatedContainer(
-          duration: Duration(milliseconds: 250),
-          height: _isSelected ? 50 : 0,
-          color: Colors.amber[600],
-          child: const Center(child: Text('Tümünü Gör')),
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 250),
-          height: _isSelected ? 50 : 0,
-          color: Colors.amber[500],
-          child: const Center(child: Text('Entry B')),
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 250),
-          height: _isSelected ? 50 : 0,
-          color: Colors.amber[100],
-          child: const Center(child: Text('Entry C')),
-        ),
+        for (var item in sub_categories) buildSubCategoryItem(item, _isSelected)
       ],
     ),
   );
+}
+
+InkWell buildSubCategoryItem(Category item, bool _isSelected) {
+  return InkWell(
+      onTap: () {
+        print("${item.name} pressed");
+        item.onPress();
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 250),
+        height: _isSelected ? 50 : 0,
+        color: Colors.amber[100],
+        child: Center(child: Text(item.name)),
+      ));
 }
 
 Padding buildCategoryListItem(String imgSrc, String title, Function onPress) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/category.dart';
 import 'package:myapp/widgets/category_list_item.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   CategoryListItem(
                     imgSrc: 'assets/images/lolo_dog',
                     title: 'Et, Balık, Tavuk',
+                    sub_categories: [Category('Tümünü Gör', () {})],
                     onPress: () => {},
                   ),
                   CategoryListItem(

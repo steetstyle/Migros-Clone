@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/constant.dart';
+import 'package:myapp/theme/constant.dart';
 import 'package:myapp/widgets/dog_card.dart';
 import 'package:myapp/widgets/walk_card.dart';
 

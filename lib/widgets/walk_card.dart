@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/constant.dart';
+import 'package:myapp/theme/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WalkCard extends StatelessWidget {

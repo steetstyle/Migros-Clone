@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:myapp/constant.dart';
+import 'package:myapp/theme/constant.dart';
 
 class DogCard extends StatelessWidget {
   const DogCard({
@@ -29,16 +28,14 @@ class DogCard extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 80, right: 10),
+                          padding: const EdgeInsets.only(left: 80, right: 10),
                           child: Text(
                               "Loca is lost in yout nighborrhodd! Help us to find her!",
                               style: contentWhite),
                         ))),
               ),
             ),
-            Container(
-                child: Image.asset('assets/images/lolo_dog.png'))
+            Container(child: Image.asset('assets/images/lolo_dog.png'))
           ],
         ));
   }
