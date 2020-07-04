@@ -8,7 +8,23 @@ class SearchPage extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: [SearchBar()],
+          children: [
+            SearchBar(
+              storeKey: 'FurkaninListesi',
+              onChanged: (value) {
+                print("degişti");
+              },
+              onClean: () {
+                print("temizlendi");
+              },
+              onSubmitted: (value) {
+                print("Search Bar onSubmitted $value");
+              },
+              onTapSearchedItem: (value) {
+                print("SearchBar onTapSearchedItem $value");
+              },
+            ),
+          ],
         ),
       ),
     );
