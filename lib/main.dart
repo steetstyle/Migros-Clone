@@ -1,0 +1,161 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:myapp/constant.dart';
+import 'package:myapp/pages/category_page.dart';
+import 'package:myapp/pages/home_page.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+          scaffoldBackgroundColor: appBackground),
+      home: RootPage(),
+    );
+  }
+}
+
+class RootPage extends StatefulWidget {
+  @override
+  _RootPageState createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  List<BottomNavigationBarItem> itemTabs = [
+    buildBottomNavigationBarItem(Icon(LineIcons.home), 'Anasayfa'),
+    buildBottomNavigationBarItem(Icon(LineIcons.list), 'Kategoriler'),
+    buildBottomNavigationBarItem(Icon(LineIcons.superscript), 'Kampanyalar'),
+    buildBottomNavigationBarItem(Icon(LineIcons.search), 'Ürün Ara'),
+    buildBottomNavigationBarItem(Icon(LineIcons.cart_plus), 'Sepetim'),
+  ];
+
+  List<Widget> pages = [
+    HomePage(),
+    CategoryPage(),
+    Center(
+      child: Text("Kampanyalar"),
+    ),
+    Center(
+      child: Text("Ürün Ara"),
+    ),
+    Center(
+      child: Text("Sepetim"),
+    ),
+  ];
+
+  List<AppBar> pagesAppBar = [
+    AppBar(
+      backgroundColor: white,
+      leading: Image.asset('assets/images/lolo_dog.png'),
+      actions: getActions(),
+    ),
+    AppBar(
+      backgroundColor: white,
+      centerTitle: true,
+      title: Text(
+        'Kategoriler',
+        style: TextStyle(color: bottomBarColor),
+      ),
+      actions: getActions(),
+    ),
+    AppBar(
+      backgroundColor: white,
+      centerTitle: true,
+      title: Text(
+        'Kampayalar',
+        style: TextStyle(color: bottomBarColor),
+      ),
+      actions: getActions(),
+    ),
+    AppBar(
+      backgroundColor: white,
+      centerTitle: true,
+      title: Text(
+        'Ürün Ara',
+        style: TextStyle(color: bottomBarColor),
+      ),
+      actions: getActions(),
+    ),
+    AppBar(
+      backgroundColor: white,
+      centerTitle: true,
+      title: Text(
+        'Sepetim',
+        style: TextStyle(color: bottomBarColor),
+      ),
+      actions: getActions(),
+    ),
+  ];
+
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: getAppBar(),
+      body: getBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: itemTabs,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        iconSize: 30,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        backgroundColor: bottomBarColor,
+        selectedItemColor: bottomBarItemSelectedColor,
+        unselectedItemColor: white,
+      ),
+    );
+  }
+
+  Widget getBody() {
+    return pages.elementAt(selectedIndex);
+  }
+
+  AppBar getAppBar() {
+    return pagesAppBar.elementAt(selectedIndex);
+  }
+}
+
+List<Widget> getActions() {
+  return <Widget>[
+    buildAppBarButton(Icons.access_alarm),
+    buildAppBarButton(Icons.account_circle)
+  ];
+}
+
+BottomNavigationBarItem buildBottomNavigationBarItem(
+    Icon icon, String titleText) {
+  return BottomNavigationBarItem(
+      icon: icon,
+      title: Padding(
+        padding: EdgeInsets.only(top: 12),
+        child: Text(titleText,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+      ));
+}
+
+Widget buildAppBarButton(IconData iconData) {
+  return MaterialButton(
+    height: 41,
+    minWidth: 41,
+    onPressed: () {},
+    color: bottomBarColor,
+    textColor: Colors.white,
+    child: Icon(iconData, size: 25, color: Colors.white),
+    padding: EdgeInsets.all(5),
+    shape: CircleBorder(),
+  );
+}
